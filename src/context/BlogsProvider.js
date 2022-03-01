@@ -1,24 +1,20 @@
-import React, {useReducer} from 'react';
-
-const BlogContext = React.createContext();
+import contextHelper from './contextHelper';
 
 const blogReducer = (state, action) => {
-  switch(action.type){
+  switch (action.type) {
     case 'add_blogPost':
-      return [...state, {title: `Blog Post #${state.length + 1 }`}]
+      return [...state, {title: `Blog Post #${state.length + 1}`}];
   }
-}
-export const BlogProvider = ({children}) => {
-  const [blogPosts, dispatch] = useReducer(blogReducer,[]);
-
-  const addBlogPosts = () => {
-    dispatch({type: 'add_blogPost'})
-  };
-  return (
-    <BlogContext.Provider value={{data: blogPosts, addBlogPosts}}>
-      {children}
-    </BlogContext.Provider>
-  );
 };
 
-export default BlogContext;
+const addBlogPosts = (dispatch) => {
+  return () => {
+    dispatch({type: 'add_blogPost'});
+  }
+};
+
+export const {BlogContext, Provider} = contextHelper(
+  blogReducer,
+  {addBlogPosts},
+  [],
+);

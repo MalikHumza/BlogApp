@@ -2,7 +2,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import IndexScreen from './src/screens/IndexScreen';
-import { BlogProvider } from './src/context/BlogsProvider';
+import { Provider } from './src/context/BlogsProvider';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -22,8 +22,8 @@ const Container =  App;
 
 export default () =>{
   return (
-    <BlogProvider>
+    <Provider>
       <Container />
-    </BlogProvider>
+    </Provider>
   )
 }
