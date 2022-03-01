@@ -1,10 +1,17 @@
-import {StyleSheet, Text, View, FlatList, Button} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Button,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useContext} from 'react';
 import {BlogContext} from '../context/BlogsProvider';
 import Icon from 'react-native-vector-icons/Feather';
 
 const IndexScreen = () => {
-  const {state, addBlogPosts} = useContext(BlogContext);
+  const {state, addBlogPosts, deleteBlogPosts} = useContext(BlogContext);
   return (
     <View>
       <Button title="Add Posts" onPress={() => addBlogPosts()} />
@@ -13,9 +20,13 @@ const IndexScreen = () => {
         keyExtractor={Posts => Posts.title}
         renderItem={({item}) => {
           return (
-            <View style= {styles.row}>
-              <Text style={styles.title}>{item.title}</Text>
-              <Icon name="trash-2" style={styles.iconStyle}/>
+            <View style={styles.row}>
+              <Text style={styles.title}>
+                {item.title}
+              </Text>
+              <TouchableOpacity onPress={() => deleteBlogPosts(item.id)}>
+                <Icon name="trash-2" style={styles.iconStyle} />
+              </TouchableOpacity>
             </View>
           );
         }}
@@ -36,9 +47,9 @@ const styles = StyleSheet.create({
     // marginTop: 6
   },
   title: {
-    fontSize: 20
+    fontSize: 20,
   },
   iconStyle: {
-    fontSize: 26
-  }
+    fontSize: 26,
+  },
 });
