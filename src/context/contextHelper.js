@@ -5,9 +5,9 @@ export default (reducer, action, initialState) => {
 
   const Provider = ({children}) => {
     const [state, dispatch] = useReducer(reducer, initialState);
-    const boundActions= {};
+    const boundActions = {};
     for (let key in action) {
-        boundActions[key] = action[key](dispatch);
+      boundActions[key] = action[key](dispatch);
     }
     return (
       <BlogContext.Provider value={{state, ...boundActions}}>
@@ -15,5 +15,5 @@ export default (reducer, action, initialState) => {
       </BlogContext.Provider>
     );
   };
-  return{BlogContext, Provider};
+  return {BlogContext, Provider};
 };

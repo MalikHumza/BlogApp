@@ -10,7 +10,7 @@ import React, {useContext} from 'react';
 import {BlogContext} from '../context/BlogsProvider';
 import Icon from 'react-native-vector-icons/Feather';
 
-const IndexScreen = () => {
+const IndexScreen = ({navigation}) => {
   const {state, addBlogPosts, deleteBlogPosts} = useContext(BlogContext);
   return (
     <View>
@@ -20,14 +20,15 @@ const IndexScreen = () => {
         keyExtractor={Posts => Posts.title}
         renderItem={({item}) => {
           return (
-            <View style={styles.row}>
-              <Text style={styles.title}>
-                {item.title}
-              </Text>
-              <TouchableOpacity onPress={() => deleteBlogPosts(item.id)}>
-                <Icon name="trash-2" style={styles.iconStyle} />
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('show', {id: item.id})}>
+              <View style={styles.row}>
+                <Text style={styles.title}>{item.title}</Text>
+                <TouchableOpacity onPress={() => deleteBlogPosts(item.id)}>
+                  <Icon name="trash-2" style={styles.iconStyle} />
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
           );
         }}
       />
