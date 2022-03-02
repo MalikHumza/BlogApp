@@ -11,10 +11,9 @@ import {BlogContext} from '../context/BlogsProvider';
 import Icon from 'react-native-vector-icons/Feather';
 
 const IndexScreen = ({navigation}) => {
-  const {state, addBlogPosts, deleteBlogPosts} = useContext(BlogContext);
+  const {state, deleteBlogPosts} = useContext(BlogContext);
   return (
     <View>
-      <Button title="Add Posts" onPress={() => addBlogPosts()} />
       <FlatList
         data={state}
         keyExtractor={Posts => Posts.title}
