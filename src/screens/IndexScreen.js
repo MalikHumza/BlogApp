@@ -11,6 +11,7 @@ import {BlogContext} from '../context/BlogsProvider';
 import Icon from 'react-native-vector-icons/Feather';
 
 const IndexScreen = ({navigation}) => {
+  // console.log(props)
   const {state, deleteBlogPosts} = useContext(BlogContext);
   return (
     <View>

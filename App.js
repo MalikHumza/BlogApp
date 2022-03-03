@@ -5,8 +5,10 @@ import IndexScreen from './src/screens/IndexScreen';
 import {Provider} from './src/context/BlogsProvider';
 import ShowScreen from './src/screens/ShowScreen';
 import CreateScreen from './src/screens/CreateScreen';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import IconPencil from 'react-native-vector-icons/Foundation';
+import EditScreen from './src/screens/EditScreen';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -32,12 +34,30 @@ const App = () => {
         <Stack.Screen
           name="show"
           component={ShowScreen}
-          options={{title: 'View Post', headerTitleAlign: 'center'}}
+          options={props => {
+            const {navigation, route:{params}} = props;
+            const id = params.id;
+            return {
+              title: 'View Post',
+              headerTitleAlign: 'center',
+
+              headerRight: () => (
+                <TouchableOpacity onPress={() => navigation.navigate('edit', {id: id })}>
+                  <IconPencil name="pencil" size={30} />
+                </TouchableOpacity>
+              ),
+            };
+          }}
         />
         <Stack.Screen
           name="create"
           component={CreateScreen}
           options={{title: 'Create Post', headerTitleAlign: 'center'}}
+        />
+        <Stack.Screen
+          name="edit"
+          component={EditScreen}
+          options={{title: 'Edit Post', headerTitleAlign: 'center'}}
         />
       </Stack.Navigator>
     </NavigationContainer>
