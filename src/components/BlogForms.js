@@ -23,6 +23,13 @@ const BlogForms = ({onSubmit, initialValues}) => {
   );
 };
 
+BlogForms.defaultProps = {
+  initialValues: {
+    title: '',
+    content: '',
+  },
+};
+
 export default BlogForms;
 
 const styles = StyleSheet.create({
