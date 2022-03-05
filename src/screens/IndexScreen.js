@@ -6,18 +6,27 @@ import {
   Button,
   TouchableOpacity,
 } from 'react-native';
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {BlogContext} from '../context/BlogsProvider';
 import Icon from 'react-native-vector-icons/Feather';
 
 const IndexScreen = ({navigation}) => {
   // console.log(props)
-  const {state, deleteBlogPosts} = useContext(BlogContext);
+  const {state, deleteBlogPosts, getBlogPosts} = useContext(BlogContext);
+
+  useEffect(() => {
+    getBlogPosts();
+
+    navigation.addListener('didFocus', () => {
+      getBlogPosts();
+    })
+  }, []);
+
   return (
     <View>
       <FlatList
         data={state}
-        keyExtractor={Posts => Posts.title}
+        keyExtractor={id => id.title}
         renderItem={({item}) => {
           return (
             <TouchableOpacity
